@@ -4,7 +4,39 @@
   "version": "1.0",
   "description": "A sample extension to demonstrate core files",
   "permissions": ["tabs", "storage"],
+  "background": {
+    "service_worker": "background.js"
+  },
   "action": {
     "default_popup": "popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+    "commands": {
+        "play_pause": {
+            "suggested_key": {
+                "default": "MediaPlayPause"
+            },
+            "description": "Play/Pause the video",
+            "global": true
+        },
+        "jump_forward": {
+            "suggested_key": {
+                "default": "MediaNextTrack"
+            },
+            "description": "Jump forward in the video",
+            "global": true
+        },
+        "jump_backward": {
+            "suggested_key": {
+                "default": "MediaPrevTrack"
+            },
+            "description": "Jump backward in the video",
+            "global": true
+        }
+    }
 }
