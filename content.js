@@ -14,11 +14,6 @@ function setup() {
       addEventListeners();
     }
   }, 1000);
-
-  //
-
-
-
 }
 
 if (document.readyState === 'loading') {
@@ -31,15 +26,32 @@ function addEventListeners() {
   const video = document.querySelector('video');
 
   // on play/pause, set the hotmart_player_tab in background.js to the current tab
-  video.addEventListener('play', () => {
-    console.log('Setting hotmart_player_tab to current tab');
-    chrome.runtime.sendMessage({ type: 'set_hotmart_player_tab', tabId: chrome.devtools.inspectedWindow.tabId });
-  });
+  const setHotmartPlayerTab = (event) => {
+    console.log(`Setting hotmart_player_tab to current tab (${event.type})`);
+    chrome.runtime.sendMessage({ type: 'set_hotmart_player_tab' });
+  };
+  video.addEventListener('play', setHotmartPlayerTab);
+  video.addEventListener('pause', setHotmartPlayerTab);
 
   // add play_pause listener
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    if (message.type === 'play_pause') {
-      console.log('Play/Pause command received in content script');
+  chrome.runtime.onMessage.addListener((message) => {
+    switch (message.type) {
+      case 'play_pause':
+        console.log('Play/Pause command received in content script');
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+        break;
+      case 'jump_forward':
+        console.log('Jump forward command received in content script');
+        video.currentTime += 10; // jump forward 10 seconds
+        break;
+      case 'jump_backward':
+        console.log('Jump backward command received in content script');
+        video.currentTime -= 10; // jump backward 10 seconds
+        break;
     }
   });
 }

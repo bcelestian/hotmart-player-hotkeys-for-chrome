@@ -1,18 +1,15 @@
 {
   "manifest_version": 3,
-  "name": "My First Extension",
-  "version": "1.0",
-  "description": "A sample extension to demonstrate core files",
+  "name": "Global Hotkeys for Hotmart Video Player",
+  "version": "0.1",
+  "description": "Play/Pause or seek by 10 seconds in Hotmart videos without changing focus",
   "permissions": ["tabs", "storage"],
   "background": {
     "service_worker": "background.js"
   },
-  "action": {
-    "default_popup": "popup.html"
-  },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": ["*://player.hotmart.com/*"],
       "js": ["content.js"],
       "all_frames": true
     }
