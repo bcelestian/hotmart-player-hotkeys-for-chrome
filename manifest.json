@@ -13,30 +13,31 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["content.js"]
+      "js": ["content.js"],
+      "all_frames": true
     }
   ],
-    "commands": {
-        "play_pause": {
-            "suggested_key": {
-                "default": "MediaPlayPause"
-            },
-            "description": "Play/Pause the video",
-            "global": true
-        },
-        "jump_forward": {
-            "suggested_key": {
-                "default": "MediaNextTrack"
-            },
-            "description": "Jump forward in the video",
-            "global": true
-        },
-        "jump_backward": {
-            "suggested_key": {
-                "default": "MediaPrevTrack"
-            },
-            "description": "Jump backward in the video",
-            "global": true
-        }
+  "commands": {
+    "play_pause": {
+      "suggested_key": {
+        "default": "MediaPlayPause"
+      },
+      "description": "Play/Pause the video",
+      "global": true
+    },
+    "jump_forward": {
+      "suggested_key": {
+        "default": "MediaNextTrack"
+      },
+      "description": "Jump forward in the video",
+      "global": true
+    },
+    "jump_backward": {
+      "suggested_key": {
+        "default": "MediaPrevTrack"
+      },
+      "description": "Jump backward in the video",
+      "global": true
     }
+  }
 }
